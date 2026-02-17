@@ -1,0 +1,14 @@
+{
+  "name": "log_cleaner",
+  "version": "1.0.0",
+  "description": "Watcher that cleans a log file by removing configurable block patterns (e.g. NestJS LoggingInterceptor request/response).",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wildlifechorus/log_cleaner.git"
+  },
+  "scripts": {
+    "start": "node clean-log.js"
+  }
+}

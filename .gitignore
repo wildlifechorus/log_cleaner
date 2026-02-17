@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Log file (watched target; often large or sensitive)
+log.txt
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Local patterns (copy patterns.example.js to patterns.js)
+patterns.js
+
+# Env (if you add config later)
+.env
+.env.local
+.env.*.local
