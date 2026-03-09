@@ -5,37 +5,31 @@
  * Copy this file to patterns.js and customize for your project.
  * patterns.js is gitignored so your local patterns are not committed.
  *
- * Each pattern has:
- *   - name: short label for logging
- *   - blockStart: RegExp matching the line that starts a block to consider
- *   - removeIfNextLineMatches: RegExp[] — if the line after blockStart matches
- *     any of these, the whole block is removed (from blockStart through blockEnd)
- *   - blockEnd: RegExp for the line that ends the block (default: line with only "}")
+ * Single-line format (e.g. Nest with ISO timestamp + JSON context):
+ *   YYYY-MM-DDTHH:mm:ss.SSS+00:00 level: message {"context":"SomeService"}
  *
- * For single-line removal, use:
- *   - name: short label for logging
- *   - lineMatch: RegExp matching the entire line to remove
+ * Pattern types:
+ *   - lineMatch: RegExp matching the entire line to remove (single-line logs)
+ *   - blockStart + removeIfNextLineMatches + blockEnd: multi-line block removal
  */
 
 module.exports = [
+  // Single-line: remove request/response lines with LoggingInterceptor context
   {
-    name: 'Example block pattern (request/response)',
-    blockStart: /\[SomeInterceptor\]\s+Object\(\d+\)\s+\{/,
-    removeIfNextLineMatches: [
-      /^\s*type:\s*'request'/,
-      /^\s*type:\s*'response'/,
-    ],
-    blockEnd: /^\s*\}\s*$/,
+    name: 'LoggingInterceptor request/response',
+    lineMatch:
+      /"context":"LoggingInterceptor".*"type":"(?:request|response)"|"type":"(?:request|response)".*"context":"LoggingInterceptor"/,
   },
+  // Single-line: remove by context
   {
-    name: 'Example single-line pattern',
-    lineMatch: /\[SomeService\]\s+DEBUG\s+.*/,
+    name: 'Example context-based line',
+    lineMatch: /"context":"SomeService"/,
   },
-  // Add more patterns here, e.g.:
+  // Block pattern (for multi-line log format)
   // {
-  //   name: 'SomeOtherNoise',
-  //   blockStart: /\[SomeService\]\s+Object\(\d+\)\s+\{/,
-  //   removeIfNextLineMatches: [/^\s*level:\s*'debug'/],
+  //   name: 'Example block pattern',
+  //   blockStart: /\[SomeInterceptor\]\s+Object\(\d+\)\s+\{/,
+  //   removeIfNextLineMatches: [/^\s*type:\s*'request'/],
   //   blockEnd: /^\s*\}\s*$/,
   // },
 ];

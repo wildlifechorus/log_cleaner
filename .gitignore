@@ -23,3 +23,6 @@ patterns.js
 .env
 .env.local
 .env.*.local
+
+# Cursor
+.cursorignore
